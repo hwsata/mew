@@ -1,70 +1,84 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Случайная картинка</title>
+    <title>Сайтик с менюшкой</title>
     <style>
         body {
             background-color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
         }
-
-        .image-container {
+        .container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-        }
-
-        img {
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 10px;
-        }
-
-        .btn-container {
-            display: flex;
             justify-content: center;
-            margin-top: 20px;
-        }
-
-        .random-button {
-            padding: 10px 20px;
-            background-color: #4caf50;
+            height: 100vh;
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            border-right: 2px solid white;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(40), blink-caret 0.5s step-end infinite alternate;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 240px; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+        p {
+            font-size: 24px;
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .menu-item {
+            margin: 10px;
+        }
+        .menu-link {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: 2px solid #800080;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        .menu-link:hover {
+            border-color: #ff00ff;
         }
     </style>
 </head>
 <body>
-    <div class="image-container" id="image-container">
-        <!-- Место для отображения картинки -->
+    <div class="container">
+        <h1>Hello World Sata</h1>
+        <p>Эгоист</p>
+        <div class="menu">
+            <div class="menu-item">
+                <a class="menu-link" href="site1">Работы и ссылки HW Sata</a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="site2">Перевод денег</a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="site3">Мини-чат</a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="site4">Мини-игры</a>
+            </div>
+            <div class="menu-item">
+                <a class="menu-link" href="site5">Случайный арт</a>
+            </div>
+        </div>
     </div>
-    <div class="btn-container">
-        <button class="random-button" id="random-button" onclick="getRandomImage()">Случайная картинка</button>
-    </div>
-
-    <script>
-        function getRandomImage() {
-            fetch('https://api.waifu.pics/standard')
-                .then(response => response.json())
-                .then(data => {
-                    const imageURL = data.url;
-
-                    const imageContainer = document.getElementById('image-container');
-                    const image = document.createElement('img');
-                    image.src = imageURL;
-
-                    imageContainer.innerHTML = "";
-
-                    // Добавляем картинку в контейнер
-                    imageContainer.appendChild(image);
-                })
-                .catch(error => console.log(error));
-        }
-    </script>
 </body>
 </html>
