@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Случайная картинка</title>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .random-button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container" id="image-container">
+        <!-- Место для отображения картинки -->
+    </div>
+    <div class="btn-container">
+        <button class="random-button" id="random-button" onclick="getRandomImage()">Случайная картинка</button>
+    </div>
+
+    <script>
+        function getRandomImage() {
+            fetch('https://api.waifu.pics/standard')
+                .then(response => response.json())
+                .then(data => {
+                    const imageURL = data.url;
+
+                    const imageContainer = document.getElementById('image-container');
+                    const image = document.createElement('img');
+                    image.src = imageURL;
+
+                    imageContainer.innerHTML = "";
+
+                    // Добавляем картинку в контейнер
+                    imageContainer.appendChild(image);
+                })
+                .catch(error => console.log(error));
+        }
+    </script>
+</body>
+</html>
