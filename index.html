@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: black;
+      font-family: Arial, sans-serif;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 40px;
+      border: 2px solid #FF4081;
+      border-radius: 20px;
+    }
+
+    h1 {
+      color: white;
+      font-size: 32px;
+      margin: 0;
+    }
+
+    p {
+      color: white;
+      font-size: 18px;
+      margin: 0;
+      animation: typing 2s steps(20), blink-animation 0.5s step-end infinite alternate;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid white;
+    }
+
+    @keyframes typing {
+      from {width: 0;}
+      to {width: 100%;}
+    }
+
+    @keyframes blink-animation {
+      50% {border-color: transparent;}
+    }
+
+    .menu-button {
+      border: 2px solid transparent;
+      background-color: transparent;
+      color: #FF4081;
+      font-size: 20px;
+      padding: 8px 16px;
+      border-radius: 30px;
+      transition: border-color 0.3s;
+    }
+
+    .menu-button:hover {
+      border-color: #FF4081;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <h1>Egoist</h1>
+    <p>"выбирай и уходи!"</p>
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/links'">ссылки и прочее</button>
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/donate'">перевод денег</button>
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/chat'">мини чатик</button>
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/game'">мини игры</button>
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/art'">случайный арт</button>
+  </div>
+</body>
+</html>
