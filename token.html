@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <h1>URL Viewer</h1>
-    <p>{"url": "<span id="fullUrl">"}</span></p>
+    <p>{"url": "<span id="fullUrl"></span>"}</p>
 
     <script>
         const fullUrl = window.location.href;
         
-        const urlWithText = fullUrl + "}";
+        const urlWithText = fullUrl;
         
         document.getElementById("fullUrl").textContent = urlWithText;
     </script>
