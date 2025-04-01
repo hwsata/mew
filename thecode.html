@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WS Satanic Codex</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Orbitron:wght@400;700&display=swap');
+        
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .pentagram {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            animation: rotate 20s linear infinite;
+        }
+        
+        .pentagram:before {
+            content: "★";
+            position: absolute;
+            color: #ff0000;
+            font-size: 100px;
+            transform: rotate(180deg);
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .codex-item {
+            background: rgba(20, 20, 20, 0.8);
+            border: 2px solid #ff0000;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+        
+        .codex-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+            border-color: #ff5555;
+        }
+        
+        .codex-item::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff0000, #ff0000, #000000, #ff0000);
+            background-size: 400% 400%;
+            z-index: -1;
+            opacity: 0;
+            transition: 0.5s;
+            animation: gradient 8s ease infinite;
+            border-radius: 8px;
+        }
+        
+        .codex-item:hover::before {
+            opacity: 0.3;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .number {
+            font-family: 'Black Ops One', cursive;
+            color: #ff0000;
+            font-size: 24px;
+            margin-right: 10px;
+            text-shadow: 0 0 5px #ff0000;
+        }
+        
+        .title {
+            font-family: 'Black Ops One', cursive;
+            text-align: center;
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+        }
+        
+        .footer {
+            background: linear-gradient(to right, #000000, #1a0000, #000000);
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            border-top: 1px solid #ff0000;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ff0000, transparent);
+        }
+        
+        .glitch {
+            animation: glitch 1s linear infinite;
+        }
+        
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #ff0000, -0.05em -0.025em 0 #0000ff; }
+            14% { text-shadow: 0.05em 0 0 #ff0000, -0.05em -0.025em 0 #0000ff; }
+            15% { text-shadow: -0.05em -0.025em 0 #ff0000, 0.025em 0.025em 0 #0000ff; }
+            49% { text-shadow: -0.05em -0.025em 0 #ff0000, 0.025em 0.025em 0 #0000ff; }
+            50% { text-shadow: 0.025em 0.05em 0 #ff0000, 0.05em 0 0 #0000ff; }
+            99% { text-shadow: 0.025em 0.05em 0 #ff0000, 0.05em 0 0 #0000ff; }
+            100% { text-shadow: -0.025em 0 0 #ff0000, -0.025em -0.025em 0 #0000ff; }
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(0, 0, 0, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.3;
+        }
+        
+        .flicker {
+            animation: flicker 0.1s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 0.95; }
+            100% { opacity: 1; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+    </style>
+</head>
+<body class="flicker">
+    <div class="scanlines"></div>
+    
+    <div class="container mx-auto px-4 py-10 max-w-4xl">
+        <div class="text-center mb-16">
+            <div class="pentagram mb-4"></div>
+            <h1 class="title text-4xl md:text-5xl uppercase tracking-wider glitch">WS Satanic</h1>
+            <h2 class="text-xl md:text-2xl mt-4 text-red-500 uppercase tracking-widest">Codex Satanist</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 gap-6">
+            <!-- Codex Item 1 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">I</span>
+                    <p>Сатана однозначно и бесспорно представляет Собою конкретную, реальную и сверхмогущественную Личность.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 2 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">II</span>
+                    <p>Лучше искренне служить Дьяволу, чем лицемерно - Богу.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 3 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">III</span>
+                    <p>Каждый истинный сатанист(далее - сатанист) ни в малейшей степени не должен игнорировать и тем более преступать, но должен уважать и строго соблюдать законы той страны, в которой проживает.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 4 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">IV</span>
+                    <p>Сатанист должен быть высоконравственной личностью - достойным и образцовым, во всех отношениях, представителем цивилизованного общества.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 5 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">V</span>
+                    <p>Не ищите людей, которые не лгут - их не бывает; ищите же тех, кто обманывает, но не предает - с такими можно иметь дело.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 6 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">VI</span>
+                    <p>Лучше быть сатанистом, которого боятся и уважают, чем христианином, которого любят.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 7 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">VII</span>
+                    <p>Никогда не возвращайся в те места, где тебе было плохо; никогда не проси у тех, кто отказал однажды; и больше не подпускай близко тех, кто однажды сделал тебе больно.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 8 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">VIII</span>
+                    <p>Мечтай и дерзай, но никогда не забывай - никому нельзя доверять!</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 9 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">IX</span>
+                    <p>В этом мире можно искать все, кроме любви и смерти; они сами тебя найдут, когда придет время.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 10 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">X</span>
+                    <p>Никогда не сдавайся! Сдаются только - недвижимость, проститутки и слабаки!</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 11 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XI</span>
+                    <p>Распахните врата Ада! Нижние небесные сферы да будут служить Вам! Правьте теми, кто правит! Свергайте оступившихся. Возвеличивайте окрепших и уничтожайте слабых. Для них места нет, пусть останутся единицы.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 12 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XII</span>
+                    <p>Выжигая само имя человеческое без остатка из иерархии Божественных порядков, обращая человека на неисчислимые преграды, обрекая на гнет беспощадного противоборства, Сатана учит человека быть себе самому самым безжалостным судьей и главным своим испытанием; Сатана учит его желать боли вторжения демонического, являть искренность даже в бессердечии, быть сильным вопреки любым обстоятельствам, быть мудрее времени, лукавее жизни, искуснее смерти и искушеннее порока, быть опасным для своих врагов даже в поражении.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 13 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XIII</span>
+                    <p>Сатанист! Воспитывай в себе свободного и благородного волка; и не уподобляйся раболепствующим, трусливым, подлым и ничтожным шакалам!</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 14 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XIV</span>
+                    <p>Чем меньше окружающие знают о твоей личной жизни, тем удачнее она складывается.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 15 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XV</span>
+                    <p>Дьявол Сам выбирает души, которые желает приобрести, и никогда не обратит внимания на те, что сами униженно выставляют себя на продажу.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 16 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XVI</span>
+                    <p>Прежде, чем пустить корни, посмотри - высоко ли ты сможешь здесь вырасти?!</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 17 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XVII</span>
+                    <p>Силен не тот, кто не упал, а тот, кто падал и вставал!</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 18 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XVIII</span>
+                    <p>Слабые скажут - не судьба. Сильные попробуют еще раз.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 19 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XIX</span>
+                    <p>Сатаниста должны украшать, как минимум, три вещи: порядочность, характер и поступки, а не дешевые понты, завышенная самооценка и длинный язык.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 20 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XX</span>
+                    <p>Доверяйте тем людям, которые умеют видеть в Вас, также, как минимум, три вещи: печаль, скрывающуюся за улыбкой, любовь, скрывающуюся за гневом, и - причину Вашего молчания.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 21 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XXI</span>
+                    <p>Истинный Сатанизм не приемлет, и соответственно не практикует, человеческие жертвоприношения.</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 22 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XXII</span>
+                    <p>Благородный сатанист может, в некоторых случаях, ответить добром на зло; но, он никогда не ответит злом на добро!</p>
+                </div>
+            </div>
+            
+            <!-- Codex Item 23 -->
+            <div class="codex-item pulse">
+                <div class="flex items-start">
+                    <span class="number">XXIII</span>
+                    <p>Сатанисты, будьте благодарны своим проблемам, так как они реально показывают Вам, чего Вы стоите на самом деле.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer mt-20">
+            <p class="text-red-500 uppercase tracking-widest text-sm md:text-base">Winsent Satanic Bible 2025</p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <span class="text-gray-500 text-xs">© 2025 WS Satanic Order</span>
+                <span class="text-gray-500 text-xs">All Rights Reserved</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Add random flickering effect to codex items
+        document.addEventListener('DOMContentLoaded', function() {
+            const items = document.querySelectorAll('.codex-item');
+            
+            function randomFlicker() {
+                const randomItem = items[Math.floor(Math.random() * items.length)];
+                randomItem.classList.add('flicker-fast');
+                
+                setTimeout(() => {
+                    randomItem.classList.remove('flicker-fast');
+                }, 200);
+                
+                setTimeout(randomFlicker, Math.random() * 3000 + 1000);
+            }
+            
+            setTimeout(randomFlicker, 2000);
+            
+            // Add glow effect on hover
+            items.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 0 20px rgba(255, 0, 0, 0.8)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 0 10px rgba(255, 0, 0, 0.3)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
