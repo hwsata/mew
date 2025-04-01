@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/png" href="logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WS HOME</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,25 +14,33 @@
       --neon-blue: #00F7FF;
       --neon-green: #39FF14;
       --neon-purple: #BA33FF;
+      --neon-yellow: #FFEA03;
       --dark-bg: #0a0a0a;
+    }
+    
+    * {
+      box-sizing: border-box;
     }
     
     body {
       font-family: 'Share Tech Mono', monospace;
       background-color: var(--dark-bg);
+      margin: 0;
+      padding: 20px;
+      width: 100%;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
-      overflow: hidden;
+      overflow-x: hidden;
+      touch-action: manipulation;
       background-image: 
         radial-gradient(circle at 10% 20%, rgba(255, 20, 201, 0.05) 0%, transparent 20%),
         radial-gradient(circle at 90% 30%, rgba(0, 247, 255, 0.05) 0%, transparent 20%),
         radial-gradient(circle at 50% 80%, rgba(57, 255, 20, 0.05) 0%, transparent 20%);
     }
     
-    /* Неоновые текстовые эффекты */
+    /* Text effects */
     .neon-text-pink {
       color: var(--neon-pink);
       text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
@@ -53,9 +61,14 @@
       text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
     }
     
-    /* Эффект сканирующей линии */
+    .neon-text-yellow {
+      color: var(--neon-yellow);
+      text-shadow: 0 0 5px var(--neon-yellow), 0 0 10px var(--neon-yellow);
+    }
+    
+    /* Scanline effect - performance optimized */
     .scanline {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -66,45 +79,48 @@
         rgba(255, 255, 255, 0.03) 50%,
         rgba(255, 255, 255, 0) 100%
       );
-      background-size: 100% 5px;
-      animation: scanline 8s linear infinite;
+      background-size: 100% 30px;
+      animation: scanline 12s linear infinite;
       pointer-events: none;
       z-index: -1;
+      will-change: background-position;
     }
     
     @keyframes scanline {
       0% { background-position: 0 0; }
-      100% { background-position: 0 100%; }
+      100% { background-position: 0 100vh; }
     }
     
-    /* Основное меню с анимированной рамкой */
+    /* Main menu with optimized performance */
     .menu {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
-      padding: 40px;
-      border-radius: 20px;
+      gap: 15px;
+      padding: 20px;
+      border-radius: 16px;
       background-color: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(3px);
       z-index: 1;
       position: relative;
       overflow: hidden;
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
     }
     
-    /* Анимированная рамка */
+    /* Animated border with hardware acceleration */
     .menu::before {
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: 22px;
-      padding: 3px;
+      border-radius: 18px;
+      padding: 2px;
       background: linear-gradient(
         45deg,
-        var(--neon-pink),
-        var(--neon-blue),
-        var(--neon-green),
-        var(--neon-purple)
+        var(--neon-color-1),
+        var(--neon-color-2),
+        var(--neon-color-3)
       );
       -webkit-mask: 
         linear-gradient(#fff 0 0) content-box,
@@ -112,129 +128,153 @@
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       animation: 
-        border-rotate 8s linear infinite,
-        border-flicker 0.5s ease-in-out infinite alternate;
+        border-rotate 12s linear infinite;
+      pointer-events: none;
+      will-change: filter;
     }
     
     @keyframes border-rotate {
       0%, 100% { filter: hue-rotate(0deg); }
-      25% { filter: hue-rotate(90deg); }
-      50% { filter: hue-rotate(180deg); }
-      75% { filter: hue-rotate(270deg); }
+      50% { filter: hue-rotate(360deg); }
     }
     
-    @keyframes border-flicker {
-      0%, 10%, 20%, 30%, 40%, 60%, 70%, 80%, 90%, 100% {
-        opacity: 0.8;
-      }
-      5%, 15%, 25%, 35%, 45%, 55%, 65%, 75%, 85%, 95% {
-        opacity: 0.4;
-      }
-    }
-    
-    /* Анимации текста */
+    /* Responsive text sizes */
     h1 {
-      font-size: 42px;
-      margin: 0;
+      font-size: clamp(24px, 6vw, 42px);
+      margin: 5px 0;
       text-transform: uppercase;
-      letter-spacing: 3px;
-      animation: text-glow 2s infinite alternate;
+      letter-spacing: 2px;
+      text-align: center;
     }
     
-    @keyframes text-glow {
-      0% { text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink); }
-      33% { text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue); }
-      66% { text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green); }
-    }
-    
-    /* Эффект печатающегося текста */
     p {
-      font-size: 18px;
+      font-size: clamp(14px, 4vw, 18px);
       margin: 0;
-      animation: typing 2s steps(20, end), blink-animation 0.5s step-end infinite alternate;
       white-space: nowrap;
       overflow: hidden;
-      border-right: 2px solid var(--neon-blue);
+      text-overflow: ellipsis;
+      max-width: 100%;
+      text-align: center;
     }
     
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    
-    @keyframes blink-animation {
-      50% { border-color: transparent; }
-    }
-    
-    /* Стили кнопок с анимированными рамками */
+    /* Optimized buttons for mobile with aligned icons */
     .menu-button {
       border: none;
       background-color: transparent;
       color: white;
-      font-size: 18px;
-      padding: 10px 25px;
-      border-radius: 30px;
-      width: 250px;
-      text-align: center;
+      font-size: clamp(14px, 4vw, 18px);
+      padding: 10px 20px;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 320px;
+      text-align: left;
       position: relative;
       overflow: hidden;
-      transition: all 0.3s;
+      transition: transform 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+      will-change: transform, box-shadow;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px; /* Оптимальный размер для касаний на мобильных */
     }
     
-    /* Анимированные рамки для кнопок */
+    .menu-button i {
+      margin-right: 12px;
+      font-size: 1.15em;
+      min-width: 24px; /* Фиксированная ширина для выравнивания */
+      text-align: center;
+      vertical-align: middle;
+    }
+    
+    .menu-button span {
+      flex-grow: 1;
+      text-align: left;
+    }
+    
     .menu-button::before {
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: 30px;
-      padding: 2px;
+      border-radius: 24px;
+      padding: 1px;
       background: linear-gradient(
         45deg,
-        var(--neon-pink),
-        var(--neon-blue),
-        var(--neon-green)
+        var(--neon-color-1),
+        var(--neon-color-2),
+        var(--neon-color-3)
       );
       -webkit-mask: 
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
-      animation: 
-        border-rotate 8s linear infinite,
-        border-flicker 1s ease-in-out infinite alternate;
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
     }
     
-    .menu-button:hover::before {
+    .menu-button:hover::before,
+    .menu-button:focus::before,
+    .menu-button:active::before {
       opacity: 1;
     }
     
-    .menu-button:hover {
+    .menu-button:hover,
+    .menu-button:focus,
+    .menu-button:active {
+      transform: scale(1.02);
       color: white;
-      text-shadow: 0 0 5px var(--neon-pink);
-      box-shadow: 0 0 15px rgba(255, 20, 201, 0.5);
     }
     
-    .menu-button::after {
-      content: ">";
-      position: absolute;
-      left: 10px;
-      opacity: 0;
-      transition: all 0.3s;
-      color: var(--neon-green);
-    }
-    
-    .menu-button:hover::after {
-      opacity: 1;
-    }
-    
-    /* Стили для аудиоплеера */
-    .audio-player {
-      margin-top: 20px;
-      width: 100%;
+    /* Logo with animated border */
+    .logo-container {
       position: relative;
-      border-radius: 30px;
+      margin: 10px 0;
+      border-radius: 12px;
+      padding: 2px;
+      animation: logo-glow 4s infinite alternate;
+    }
+    
+    .logo-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      padding: 2px;
+      background: linear-gradient(
+        45deg,
+        var(--logo-color-1),
+        var(--logo-color-2),
+        var(--logo-color-3)
+      );
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 1;
+      animation: var(--logo-animation);
+    }
+    
+    .logo {
+      display: block;
+      border-radius: 10px;
+      width: clamp(150px, 40vw, 200px);
+      height: auto;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(2px);
+    }
+    
+    /* Audio player - mobile friendly */
+    .audio-player {
+      margin: 15px 0 5px;
+      width: 100%;
+      max-width: 300px;
+      position: relative;
+      border-radius: 24px;
       overflow: hidden;
     }
     
@@ -242,23 +282,21 @@
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: 30px;
-      padding: 2px;
+      border-radius: 24px;
+      padding: 1px;
       background: linear-gradient(
         45deg,
-        var(--neon-green),
-        var(--neon-blue),
-        var(--neon-pink)
+        var(--neon-color-1),
+        var(--neon-color-2),
+        var(--neon-color-3)
       );
       -webkit-mask: 
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
-      animation: 
-        border-rotate 8s linear infinite,
-        border-flicker 0.8s ease-in-out infinite alternate;
       pointer-events: none;
+      z-index: 1;
     }
     
     audio {
@@ -267,34 +305,129 @@
       background: rgba(0, 0, 0, 0.7);
     }
     
-    /* Пульсация для логотипа */
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.7; }
-      100% { opacity: 1; }
-    }
-    
-    /* Бинарный фон */
+    /* Binary background - performance optimized */
     .binary {
-      position: absolute;
+      position: fixed;
       color: rgba(255, 255, 255, 0.05);
       font-size: 12px;
       user-select: none;
       z-index: -1;
+      will-change: transform;
     }
     
-    /* Точечные узоры */
+    /* Dot grid pattern */
     .grid-pattern {
-      position: absolute;
+      position: fixed;
       width: 100%;
       height: 100%;
-      background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
       background-size: 20px 20px;
       z-index: -2;
+    }
+    
+    /* Interaction cursor effect */
+    .cursor-effect {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(1);
+      z-index: 9999;
+      mix-blend-mode: screen;
+      transition: transform 0.1s ease;
+    }
+    
+    /* Performance optimized animations */
+    @keyframes logo-glow {
+      0% { box-shadow: 0 0 5px var(--logo-color-2); }
+      50% { box-shadow: 0 0 20px var(--logo-color-3); }
+      100% { box-shadow: 0 0 5px var(--logo-color-1); }
+    }
+    
+    @keyframes logo-spin {
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes logo-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes logo-wave {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      75% { transform: rotate(-5deg); }
+    }
+    
+    @keyframes logo-color-shift {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    
+    /* Touch effects */
+    .touch-effect {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.7);
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0);
+      animation: touch-expand 0.5s ease-out forwards;
+      mix-blend-mode: screen;
+    }
+    
+    @keyframes touch-expand {
+      100% {
+        transform: translate(-50%, -50%) scale(5);
+        opacity: 0;
+      }
+    }
+    
+    /* Mobile-specific optimizations */
+    @media (max-width: 640px) {
+      body {
+        padding: 10px;
+      }
+      
+      .menu {
+        padding: 15px;
+        gap: 12px;
+      }
+      
+      .menu-button {
+        padding: 8px 15px;
+        min-height: 40px;
+      }
+      
+      .menu-button i {
+        font-size: 1em;
+        min-width: 20px;
+        margin-right: 10px;
+      }
+      
+      .binary {
+        font-size: 10px;
+      }
+      
+      /* Reduce animation intensity on mobile */
+      .menu::before {
+        animation-duration: 16s;
+      }
+      
+      .scanline {
+        animation-duration: 16s;
+      }
+    }
+    
+    /* Disable animations for users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
@@ -302,40 +435,53 @@
   <div class="scanline"></div>
   <div class="grid-pattern"></div>
   
-  <!-- Бинарный фон -->
+  <!-- Binary background -->
   <div id="binary-bg"></div>
   
-  <!-- Основное меню -->
+  <!-- Cursor effect -->
+  <div class="cursor-effect" id="cursor"></div>
+  
+  <!-- Main menu -->
   <div class="menu">
-    <img src="icon.gif" width="200" height="150" class="pulse">
+    <div class="logo-container" id="logoContainer">
+      <img src="logo.png" alt="WS Logo" class="logo">
+    </div>
+    
     <h1 class="neon-text-pink">WS</h1>	    	
     <p class="neon-text-purple">"† winsentsweet."</p>
     <p class="neon-text-blue">"{domain}/winsentsweet."</p>
     
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/links'">
-      <i class="fas fa-link neon-text-blue"></i> ссылки и прочее
+      <i class="fas fa-link neon-text-blue"></i>
+      <span>ссылки и прочее</span>
     </button>
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/donate'">
-      <i class="fas fa-money-bill-wave neon-text-green"></i> перевод денег
+      <i class="fas fa-money-bill-wave neon-text-green"></i>
+      <span>перевод денег</span>
     </button>
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/chat'">
-      <i class="fas fa-comment-dots neon-text-pink"></i> мини чатик
+      <i class="fas fa-comment-dots neon-text-pink"></i>
+      <span>мини чатик</span>
     </button>
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/game'">
-      <i class="fas fa-gamepad neon-text-blue"></i> мини игры
+      <i class="fas fa-gamepad neon-text-blue"></i>
+      <span>мини игры</span>
     </button>
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/art'">
-      <i class="fas fa-paint-brush neon-text-green"></i> случайный арт
+      <i class="fas fa-paint-brush neon-text-green"></i>
+      <span>случайный арт</span>
     </button>
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/apps'">
-      <i class="fas fa-mobile-alt neon-text-pink"></i> мои приложения
+      <i class="fas fa-mobile-alt neon-text-pink"></i>
+      <span>мои приложения</span>
     </button>
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/fm'">
-      <i class="fas fa-music neon-text-purple"></i> мое радио <3
+      <i class="fas fa-music neon-text-purple"></i>
+      <span>мое радио &lt;3</span>
     </button>
     
     <div class="audio-player">
-      <audio controls>
+      <audio controls preload="none">
         <source src="audio.mp3" type="audio/mpeg">
         Ваш браузер не поддерживает аудио элемент.
       </audio>
@@ -343,80 +489,226 @@
   </div>
 
   <script>
-    // Создаем эффект бинарного кода на фоне
-    const binaryBg = document.getElementById('binary-bg');
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    
-    for (let i = 0; i < 100; i++) {
-      const binary = document.createElement('div');
-      binary.className = 'binary';
-      binary.textContent = Array(Math.floor(Math.random() * 50) + 10).fill(0).map(() => Math.round(Math.random()).toString()).join(' ');
-      binary.style.top = Math.random() * height + 'px';
-      binary.style.left = Math.random() * width + 'px';
-      binary.style.opacity = Math.random() * 0.05;
+    document.addEventListener('DOMContentLoaded', function() {
+      // Performance optimization - delay non-critical animations
+      setTimeout(initAnimations, 100);
       
-      const animationName = `fall${i}`;
-      const style = document.createElement('style');
-      style.innerHTML = `@keyframes ${animationName} { 
-        to { transform: translateY(${height}px); } 
-      }`;
-      document.head.appendChild(style);
+      // Set random neon colors on load
+      setRandomColors();
       
-      const duration = Math.random() * 10 + 5;
-      const delay = Math.random() * -duration;
+      // Initialize cursor effects
+      initCursorEffects();
       
-      binary.style.animation = `
-        ${animationName} ${duration}s linear infinite,
-        flicker ${Math.random() * 2 + 1}s ease-in-out infinite alternate
-      `;
-      binary.style.animationDelay = `${delay}s`;
+      // Initialize touch effects
+      initTouchEffects();
       
-      binaryBg.appendChild(binary);
-    }
-    
-    // Динамическое мерцание кнопок
-    const buttons = document.querySelectorAll('.menu-button');
-    let flickerInterval;
-    
-    function randomFlicker() {
-      buttons.forEach(btn => {
-        const random = Math.random();
-        if (random > 0.7) {
-          btn.style.opacity = 0.7 + Math.random() * 0.3;
-          btn.style.transform = `scale(${1 + (Math.random() * 0.05)})`;
-        }
-      });
-    }
-    
-    flickerInterval = setInterval(randomFlicker, 100);
-    
-    // Случайное изменение оттенков при наведении
-    buttons.forEach(button => {
-      button.addEventListener('mouseenter', () => {
-        const colors = ['var(--neon-pink)', 'var(--neon-blue)', 'var(--neon-green)', 'var(--neon-purple)'];
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        button.querySelector('i').style.textShadow = `0 0 5px ${randomColor}, 0 0 10px ${randomColor}`;
-      });
-      
-      button.addEventListener('mouseleave', () => {
-        const icon = button.querySelector('i');
-        const colorClass = Array.from(icon.classList).find(cls => cls.startsWith('neon-text-'));
-        const color = getComputedStyle(document.documentElement)
-          .getPropertyValue(`--${colorClass.split('-')[2]}`);
-        icon.style.textShadow = `0 0 5px ${color}, 0 0 10px ${color}`;
-      });
+      // Initialize binary background
+      if (window.matchMedia('(min-width: 768px)').matches) {
+        initBinaryBackground();
+      }
     });
     
-    // Динамическое изменение главного заголовка
-    const title = document.querySelector('h1');
-    const titleColors = ['--neon-pink', '--neon-blue', '--neon-green', '--neon-purple'];
+    // Randomize colors on each visit
+    function setRandomColors() {
+      const colors = [
+        '--neon-pink', '--neon-blue', '--neon-green', 
+        '--neon-purple', '--neon-yellow'
+      ];
+      
+      // Shuffle array
+      const shuffled = [...colors].sort(() => 0.5 - Math.random());
+      
+      // Set random colors for the menu border
+      document.documentElement.style.setProperty('--neon-color-1', `var(${shuffled[0]})`);
+      document.documentElement.style.setProperty('--neon-color-2', `var(${shuffled[1]})`);
+      document.documentElement.style.setProperty('--neon-color-3', `var(${shuffled[2]})`);
+      
+      // Set different random colors for the logo border
+      const logoShuffled = [...colors].sort(() => 0.5 - Math.random());
+      document.documentElement.style.setProperty('--logo-color-1', `var(${logoShuffled[0]})`);
+      document.documentElement.style.setProperty('--logo-color-2', `var(${logoShuffled[1]})`);
+      document.documentElement.style.setProperty('--logo-color-3', `var(${logoShuffled[2]})`);
+      
+      // Set random animation for logo border
+      const animations = [
+        'logo-spin 10s linear infinite, logo-color-shift 6s linear infinite',
+        'logo-pulse 3s ease-in-out infinite, logo-color-shift 8s linear infinite',
+        'logo-wave 5s ease-in-out infinite, logo-color-shift 10s linear infinite',
+        'logo-glow 4s ease-in-out infinite alternate'
+      ];
+      document.documentElement.style.setProperty(
+        '--logo-animation', 
+        animations[Math.floor(Math.random() * animations.length)]
+      );
+    }
     
-    setInterval(() => {
-      const randomColor = titleColors[Math.floor(Math.random() * titleColors.length)];
-      const colorValue = getComputedStyle(document.documentElement).getPropertyValue(randomColor);
-      title.style.textShadow = `0 0 5px ${colorValue}, 0 0 10px ${colorValue}`;
-    }, 3000);
+    // Initialize animations with delay
+    function initAnimations() {
+      const title = document.querySelector('h1');
+      const titleColors = ['neon-text-pink', 'neon-text-blue', 'neon-text-green', 'neon-text-purple', 'neon-text-yellow'];
+      
+      // Cycle title colors
+      if (title) {
+        let current = 0;
+        setInterval(() => {
+          title.classList.remove(titleColors[current]);
+          current = (current + 1) % titleColors.length;
+          title.classList.add(titleColors[current]);
+        }, 3000);
+      }
+      
+      // Button hover effects
+      const buttons = document.querySelectorAll('.menu-button');
+      buttons.forEach(button => {
+        const icon = button.querySelector('i');
+        if (!icon) return;
+        
+        button.addEventListener('mouseenter', () => {
+          const colors = ['--neon-pink', '--neon-blue', '--neon-green', '--neon-purple', '--neon-yellow'];
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+          const colorValue = getComputedStyle(document.documentElement).getPropertyValue(randomColor);
+          icon.style.textShadow = `0 0 5px ${colorValue}, 0 0 10px ${colorValue}`;
+        });
+        
+        button.addEventListener('mouseleave', () => {
+          const iconClass = Array.from(icon.classList).find(c => c.startsWith('neon-text-'));
+          const color = getComputedStyle(document.documentElement)
+            .getPropertyValue(`--${iconClass.split('-')[2]}`);
+          icon.style.textShadow = `0 0 5px ${color}, 0 0 10px ${color}`;
+        });
+      });
+    }
+    
+    // Binary background - optimized for performance
+    function initBinaryBackground() {
+      const binaryBg = document.getElementById('binary-bg');
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      // Adjust density based on screen size
+      const density = Math.min(100, Math.floor((width * height) / 20000));
+      
+      for (let i = 0; i < density; i++) {
+        const binary = document.createElement('div');
+        binary.className = 'binary';
+        binary.textContent = generateBinaryString(Math.floor(Math.random() * 30) + 10);
+        
+        // Position randomly but keep in viewport
+        binary.style.top = `${Math.random() * 100}vh`;
+        binary.style.left = `${Math.random() * 100}vw`;
+        binary.style.opacity = Math.random() * 0.1;
+        
+        // Create unique animation
+        const animationName = `fall${i}`;
+        const style = document.createElement('style');
+        style.innerHTML = `
+          @keyframes ${animationName} {
+            to { transform: translateY(${height}px); }
+          }
+        `;
+        document.head.appendChild(style);
+        
+        // Random animation properties
+        const duration = 10 + Math.random() * 20;
+        const delay = -Math.random() * duration;
+        
+        binary.style.animation = `
+          ${animationName} ${duration}s linear infinite,
+          flicker ${2 + Math.random() * 3}s ease-in-out infinite alternate
+        `;
+        binary.style.animationDelay = `${delay}s`;
+        
+        binaryBg.appendChild(binary);
+      }
+    }
+    
+    function generateBinaryString(length) {
+      return Array(length).fill(0).map(() => Math.round(Math.random()).toString()).join(' ');
+    }
+    
+    // Cursor effects - desktop only
+    function initCursorEffects() {
+      const cursor = document.getElementById('cursor');
+      if (!cursor) return;
+      
+      let mouseX = 0;
+      let mouseY = 0;
+      let posX = 0;
+      let posY = 0;
+      
+      // Follow mouse with delay for smooth effect
+      document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+      
+      // Smooth follow animation
+      function updateCursor() {
+        posX += (mouseX - posX) * 0.1;
+        posY += (mouseY - posY) * 0.1;
+        
+        cursor.style.left = `${posX}px`;
+        cursor.style.top = `${posY}px`;
+        
+        requestAnimationFrame(updateCursor);
+      }
+      
+      updateCursor();
+      
+      // Interaction effects
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+          cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+          cursor.style.background = 'rgba(255, 255, 255, 0.7)';
+        });
+        
+        button.addEventListener('mouseleave', () => {
+          cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+          cursor.style.background = 'rgba(255, 255, 255, 0.5)';
+        });
+      });
+    }
+    
+    // Touch effects - mobile only
+    function initTouchEffects() {
+      const body = document.body;
+      
+      body.addEventListener('touchstart', function(e) {
+        const touch = e.touches[0];
+        if (!touch) return;
+        
+        const touchEffect = document.createElement('div');
+        touchEffect.className = 'touch-effect';
+        touchEffect.style.left = `${touch.pageX}px`;
+        touchEffect.style.top = `${touch.pageY}px`;
+        
+        const colors = ['#FF14C9', '#00F7FF', '#39FF14', '#BA33FF', '#FFEA03'];
+        touchEffect.style.background = colors[Math.floor(Math.random() * colors.length)];
+        
+        document.body.appendChild(touchEffect);
+        
+        // Remove after animation completes
+        setTimeout(() => {
+          document.body.removeChild(touchEffect);
+        }, 500);
+      });
+    }
+    
+    // Optimize for slow devices
+    if (window.navigator && window.navigator.connection) {
+      if (navigator.connection.saveData || navigator.connection.effectiveType.includes('2g')) {
+        // Reduce animations for slow connections
+        const animatedElements = document.querySelectorAll('*[style*="animation"]');
+        animatedElements.forEach(el => {
+          el.style.animationDuration = '10s';
+        });
+        
+        // Remove binary background
+        const binaryBg = document.getElementById('binary-bg');
+        if (binaryBg) binaryBg.innerHTML = '';
+      }
+    }
   </script>
 </body>
 </html>
