@@ -1,91 +1,422 @@
 <!DOCTYPE html>
 <html>
 <head>
-  	<meta charset="UTF-8">
+  <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="logo.png">
- </head>
- <title>WS HOME</title>
- <meta charset="UTF-8">
+  <title>WS HOME</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+    
+    :root {
+      --neon-pink: #FF14C9;
+      --neon-blue: #00F7FF;
+      --neon-green: #39FF14;
+      --neon-purple: #BA33FF;
+      --dark-bg: #0a0a0a;
+    }
+    
     body {
+      font-family: 'Share Tech Mono', monospace;
+      background-color: var(--dark-bg);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: black;
-      font-family: Arial, sans-serif;
+      overflow: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 20, 201, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 30%, rgba(0, 247, 255, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 50% 80%, rgba(57, 255, 20, 0.05) 0%, transparent 20%);
     }
-
+    
+    /* Неоновые текстовые эффекты */
+    .neon-text-pink {
+      color: var(--neon-pink);
+      text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
+    }
+    
+    .neon-text-blue {
+      color: var(--neon-blue);
+      text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+    }
+    
+    .neon-text-green {
+      color: var(--neon-green);
+      text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+    }
+    
+    .neon-text-purple {
+      color: var(--neon-purple);
+      text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
+    }
+    
+    /* Эффект сканирующей линии */
+    .scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.03) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      background-size: 100% 5px;
+      animation: scanline 8s linear infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    @keyframes scanline {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 100%; }
+    }
+    
+    /* Основное меню с анимированной рамкой */
     .menu {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 20px;
       padding: 40px;
-      border: 2px solid #FF4081;
       border-radius: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: 1;
+      position: relative;
+      overflow: hidden;
     }
-
+    
+    /* Анимированная рамка */
+    .menu::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      padding: 3px;
+      background: linear-gradient(
+        45deg,
+        var(--neon-pink),
+        var(--neon-blue),
+        var(--neon-green),
+        var(--neon-purple)
+      );
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: 
+        border-rotate 8s linear infinite,
+        border-flicker 0.5s ease-in-out infinite alternate;
+    }
+    
+    @keyframes border-rotate {
+      0%, 100% { filter: hue-rotate(0deg); }
+      25% { filter: hue-rotate(90deg); }
+      50% { filter: hue-rotate(180deg); }
+      75% { filter: hue-rotate(270deg); }
+    }
+    
+    @keyframes border-flicker {
+      0%, 10%, 20%, 30%, 40%, 60%, 70%, 80%, 90%, 100% {
+        opacity: 0.8;
+      }
+      5%, 15%, 25%, 35%, 45%, 55%, 65%, 75%, 85%, 95% {
+        opacity: 0.4;
+      }
+    }
+    
+    /* Анимации текста */
     h1 {
-      color: white;
-      font-size: 32px;
+      font-size: 42px;
       margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      animation: text-glow 2s infinite alternate;
     }
-
+    
+    @keyframes text-glow {
+      0% { text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink); }
+      33% { text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue); }
+      66% { text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green); }
+    }
+    
+    /* Эффект печатающегося текста */
     p {
-      color: white;
       font-size: 18px;
       margin: 0;
-      animation: typing 2s steps(20), blink-animation 0.5s step-end infinite alternate;
+      animation: typing 2s steps(20, end), blink-animation 0.5s step-end infinite alternate;
       white-space: nowrap;
       overflow: hidden;
-      border-right: 3px solid white;
+      border-right: 2px solid var(--neon-blue);
     }
-
+    
     @keyframes typing {
-      from {width: 0;}
-      to {width: 100%;}
+      from { width: 0; }
+      to { width: 100%; }
     }
-
+    
     @keyframes blink-animation {
-      50% {border-color: transparent;}
+      50% { border-color: transparent; }
     }
-
+    
+    /* Стили кнопок с анимированными рамками */
     .menu-button {
-      border: 2px solid transparent;
+      border: none;
       background-color: transparent;
-      color: #FF4081;
-      font-size: 20px;
-      padding: 8px 16px;
-      border-radius: 30px;
-      transition: border-color 0.3s;
-    }
-
-    .menu-button:hover {
-      border-color: #FF4081;
       color: white;
-      cursor: pointer;
+      font-size: 18px;
+      padding: 10px 25px;
+      border-radius: 30px;
+      width: 250px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    
+    /* Анимированные рамки для кнопок */
+    .menu-button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 30px;
+      padding: 2px;
+      background: linear-gradient(
+        45deg,
+        var(--neon-pink),
+        var(--neon-blue),
+        var(--neon-green)
+      );
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: 
+        border-rotate 8s linear infinite,
+        border-flicker 1s ease-in-out infinite alternate;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .menu-button:hover::before {
+      opacity: 1;
+    }
+    
+    .menu-button:hover {
+      color: white;
+      text-shadow: 0 0 5px var(--neon-pink);
+      box-shadow: 0 0 15px rgba(255, 20, 201, 0.5);
+    }
+    
+    .menu-button::after {
+      content: ">";
+      position: absolute;
+      left: 10px;
+      opacity: 0;
+      transition: all 0.3s;
+      color: var(--neon-green);
+    }
+    
+    .menu-button:hover::after {
+      opacity: 1;
+    }
+    
+    /* Стили для аудиоплеера */
+    .audio-player {
+      margin-top: 20px;
+      width: 100%;
+      position: relative;
+      border-radius: 30px;
+      overflow: hidden;
+    }
+    
+    .audio-player::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 30px;
+      padding: 2px;
+      background: linear-gradient(
+        45deg,
+        var(--neon-green),
+        var(--neon-blue),
+        var(--neon-pink)
+      );
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: 
+        border-rotate 8s linear infinite,
+        border-flicker 0.8s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    
+    audio {
+      width: 100%;
+      filter: invert(100%) hue-rotate(180deg);
+      background: rgba(0, 0, 0, 0.7);
+    }
+    
+    /* Пульсация для логотипа */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+    
+    /* Бинарный фон */
+    .binary {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.05);
+      font-size: 12px;
+      user-select: none;
+      z-index: -1;
+    }
+    
+    /* Точечные узоры */
+    .grid-pattern {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+      z-index: -2;
     }
   </style>
 </head>
 <body>
+  <div class="scanline"></div>
+  <div class="grid-pattern"></div>
+  
+  <!-- Бинарный фон -->
+  <div id="binary-bg"></div>
+  
+  <!-- Основное меню -->
   <div class="menu">
-  	<img src="icon.gif" width="200" height="150">
-    <h1>WS</h1>	
-    <p>"† winsentsweet."</p>
-    <p>"{domain}/winsentsweet."</p>
-    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/links'">ссылки и прочее</button>
-    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/donate'">перевод денег</button>
-    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/chat'">мини чатик</button>
-    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/game'">мини игры</button>
-    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/art'">случайный арт</button>
-    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/apps'">мои приложения</button>
-    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/fm'">мое радио <3</button>
+    <img src="icon.gif" width="200" height="150" class="pulse">
+    <h1 class="neon-text-pink">WS</h1>	    	
+    <p class="neon-text-purple">"† winsentsweet."</p>
+    <p class="neon-text-blue">"{domain}/winsentsweet."</p>
+    
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/links'">
+      <i class="fas fa-link neon-text-blue"></i> ссылки и прочее
+    </button>
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/donate'">
+      <i class="fas fa-money-bill-wave neon-text-green"></i> перевод денег
+    </button>
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/chat'">
+      <i class="fas fa-comment-dots neon-text-pink"></i> мини чатик
+    </button>
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/game'">
+      <i class="fas fa-gamepad neon-text-blue"></i> мини игры
+    </button>
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/art'">
+      <i class="fas fa-paint-brush neon-text-green"></i> случайный арт
+    </button>
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/apps'">
+      <i class="fas fa-mobile-alt neon-text-pink"></i> мои приложения
+    </button>
+    <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/fm'">
+      <i class="fas fa-music neon-text-purple"></i> мое радио <3
+    </button>
+    
+    <div class="audio-player">
       <audio controls>
-  <source src="audio.mp3" type="audio/mpeg">
-  Ваш браузер не поддерживает аудио элемент.
-</audio>
+        <source src="audio.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио элемент.
+      </audio>
+    </div>
   </div>
+
+  <script>
+    // Создаем эффект бинарного кода на фоне
+    const binaryBg = document.getElementById('binary-bg');
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    for (let i = 0; i < 100; i++) {
+      const binary = document.createElement('div');
+      binary.className = 'binary';
+      binary.textContent = Array(Math.floor(Math.random() * 50) + 10).fill(0).map(() => Math.round(Math.random()).toString()).join(' ');
+      binary.style.top = Math.random() * height + 'px';
+      binary.style.left = Math.random() * width + 'px';
+      binary.style.opacity = Math.random() * 0.05;
+      
+      const animationName = `fall${i}`;
+      const style = document.createElement('style');
+      style.innerHTML = `@keyframes ${animationName} { 
+        to { transform: translateY(${height}px); } 
+      }`;
+      document.head.appendChild(style);
+      
+      const duration = Math.random() * 10 + 5;
+      const delay = Math.random() * -duration;
+      
+      binary.style.animation = `
+        ${animationName} ${duration}s linear infinite,
+        flicker ${Math.random() * 2 + 1}s ease-in-out infinite alternate
+      `;
+      binary.style.animationDelay = `${delay}s`;
+      
+      binaryBg.appendChild(binary);
+    }
+    
+    // Динамическое мерцание кнопок
+    const buttons = document.querySelectorAll('.menu-button');
+    let flickerInterval;
+    
+    function randomFlicker() {
+      buttons.forEach(btn => {
+        const random = Math.random();
+        if (random > 0.7) {
+          btn.style.opacity = 0.7 + Math.random() * 0.3;
+          btn.style.transform = `scale(${1 + (Math.random() * 0.05)})`;
+        }
+      });
+    }
+    
+    flickerInterval = setInterval(randomFlicker, 100);
+    
+    // Случайное изменение оттенков при наведении
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        const colors = ['var(--neon-pink)', 'var(--neon-blue)', 'var(--neon-green)', 'var(--neon-purple)'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        button.querySelector('i').style.textShadow = `0 0 5px ${randomColor}, 0 0 10px ${randomColor}`;
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        const icon = button.querySelector('i');
+        const colorClass = Array.from(icon.classList).find(cls => cls.startsWith('neon-text-'));
+        const color = getComputedStyle(document.documentElement)
+          .getPropertyValue(`--${colorClass.split('-')[2]}`);
+        icon.style.textShadow = `0 0 5px ${color}, 0 0 10px ${color}`;
+      });
+    });
+    
+    // Динамическое изменение главного заголовка
+    const title = document.querySelector('h1');
+    const titleColors = ['--neon-pink', '--neon-blue', '--neon-green', '--neon-purple'];
+    
+    setInterval(() => {
+      const randomColor = titleColors[Math.floor(Math.random() * titleColors.length)];
+      const colorValue = getComputedStyle(document.documentElement).getPropertyValue(randomColor);
+      title.style.textShadow = `0 0 5px ${colorValue}, 0 0 10px ${colorValue}`;
+    }, 3000);
+  </script>
 </body>
 </html>
