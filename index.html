@@ -20,6 +20,8 @@
     
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     
     body {
@@ -30,6 +32,7 @@
       width: 100%;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       overflow-x: hidden;
@@ -66,7 +69,7 @@
       text-shadow: 0 0 5px var(--neon-yellow), 0 0 10px var(--neon-yellow);
     }
     
-    /* Scanline effect - performance optimized */
+    /* Scanline effect */
     .scanline {
       position: fixed;
       top: 0;
@@ -83,7 +86,6 @@
       animation: scanline 12s linear infinite;
       pointer-events: none;
       z-index: -1;
-      will-change: background-position;
     }
     
     @keyframes scanline {
@@ -91,51 +93,40 @@
       100% { background-position: 0 100vh; }
     }
     
-    /* Main menu with optimized performance */
+    /* Interactive background particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -2;
+    }
+    
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: currentColor;
+      pointer-events: none;
+    }
+    
+    /* Main menu */
     .menu {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       padding: 20px;
       border-radius: 16px;
       background-color: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(3px);
-      z-index: 1;
-      position: relative;
-      overflow: hidden;
-      max-width: 100%;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    
-    /* Animated border with hardware acceleration */
-    .menu::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 18px;
-      padding: 2px;
-      background: linear-gradient(
-        45deg,
-        var(--neon-color-1),
-        var(--neon-color-2),
-        var(--neon-color-3)
-      );
-      -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      animation: 
-        border-rotate 12s linear infinite;
-      pointer-events: none;
-      will-change: filter;
-    }
-    
-    @keyframes border-rotate {
-      0%, 100% { filter: hue-rotate(0deg); }
-      50% { filter: hue-rotate(360deg); }
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: 400px;
+      width: 95%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      margin: 10px 0;
+      will-change: transform;
     }
     
     /* Responsive text sizes */
@@ -150,243 +141,184 @@
     p {
       font-size: clamp(14px, 4vw, 18px);
       margin: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
       text-align: center;
     }
     
-    /* Optimized buttons for mobile with aligned icons */
+    /* Buttons */
     .menu-button {
       border: none;
-      background-color: transparent;
+      background: rgba(0, 0, 0, 0.5);
       color: white;
       font-size: clamp(14px, 4vw, 18px);
-      padding: 10px 20px;
-      border-radius: 24px;
+      padding: 12px 20px;
+      border-radius: 30px;
       width: 100%;
-      max-width: 320px;
       text-align: left;
       position: relative;
       overflow: hidden;
-      transition: transform 0.2s ease, color 0.2s ease, opacity 0.2s ease;
-      will-change: transform, box-shadow;
+      transition: all 0.3s ease;
       cursor: pointer;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      min-height: 44px; /* Оптимальный размер для касаний на мобильных */
+      min-height: 48px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      will-change: transform;
     }
     
     .menu-button i {
       margin-right: 12px;
-      font-size: 1.15em;
-      min-width: 24px; /* Фиксированная ширина для выравнивания */
+      font-size: 1.2em;
+      min-width: 24px;
       text-align: center;
-      vertical-align: middle;
     }
     
-    .menu-button span {
-      flex-grow: 1;
-      text-align: left;
+    .menu-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
     
-    .menu-button::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 24px;
-      padding: 1px;
-      background: linear-gradient(
-        45deg,
-        var(--neon-color-1),
-        var(--neon-color-2),
-        var(--neon-color-3)
-      );
-      -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-    
-    .menu-button:hover::before,
-    .menu-button:focus::before,
-    .menu-button:active::before {
-      opacity: 1;
-    }
-    
-    .menu-button:hover,
-    .menu-button:focus,
-    .menu-button:active {
-      transform: scale(1.02);
-      color: white;
-    }
-    
-    /* Logo with animated border */
+    /* Logo with neon border */
     .logo-container {
-      position: relative;
       margin: 10px 0;
       border-radius: 12px;
-      padding: 2px;
-      animation: logo-glow 4s infinite alternate;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      position: relative;
+      padding: 4px;
     }
     
     .logo-container::before {
       content: '';
       position: absolute;
-      inset: 0;
-      border-radius: 12px;
-      padding: 2px;
-      background: linear-gradient(
-        45deg,
-        var(--logo-color-1),
-        var(--logo-color-2),
-        var(--logo-color-3)
-      );
-      -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      z-index: 1;
-      animation: var(--logo-animation);
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 14px;
+      background: linear-gradient(45deg, 
+        var(--neon-pink), var(--neon-blue), var(--neon-green), 
+        var(--neon-purple), var(--neon-yellow), var(--neon-pink));
+      background-size: 400% 400%;
+      animation: borderAnimation 8s linear infinite;
+      z-index: -1;
+      opacity: 0.7;
+    }
+    
+    .logo-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+    
+    @keyframes borderAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     
     .logo {
       display: block;
       border-radius: 10px;
-      width: clamp(150px, 40vw, 200px);
+      width: 200px;
       height: auto;
-      aspect-ratio: 4/3;
       object-fit: cover;
-      background-color: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(2px);
     }
     
-    /* Audio player - mobile friendly */
+    /* Enhanced audio player */
     .audio-player {
-      margin: 15px 0 5px;
+      margin: 15px 0 0;
       width: 100%;
-      max-width: 300px;
-      position: relative;
-      border-radius: 24px;
+      border-radius: 30px;
       overflow: hidden;
-    }
-    
-    .audio-player::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 24px;
-      padding: 1px;
-      background: linear-gradient(
-        45deg,
-        var(--neon-color-1),
-        var(--neon-color-2),
-        var(--neon-color-3)
-      );
-      -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      z-index: 1;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid var(--neon-purple);
+      box-shadow: 0 0 10px rgba(186, 51, 255, 0.3);
+      padding: 10px;
     }
     
     audio {
       width: 100%;
-      filter: invert(100%) hue-rotate(180deg);
-      background: rgba(0, 0, 0, 0.7);
+      filter: invert(0.9) drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
     }
     
-    /* Binary background - performance optimized */
-    .binary {
-      position: fixed;
-      color: rgba(255, 255, 255, 0.05);
+    audio::-webkit-media-controls-panel {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+    }
+    
+    audio::-webkit-media-controls-play-button,
+    audio::-webkit-media-controls-mute-button {
+      filter: invert(0.7);
+    }
+    
+    /* Footer with eating cat */
+    .footer {
+      margin-top: 20px;
+      text-align: center;
       font-size: 12px;
-      user-select: none;
-      z-index: -1;
-      will-change: transform;
+      color: rgba(255, 255, 255, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     
-    /* Dot grid pattern */
-    .grid-pattern {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 20px 20px;
-      z-index: -2;
+    .cat-container {
+      position: relative;
+      width: 100px;
+      height: 60px;
+      margin: 10px 0;
     }
     
-    /* Interaction cursor effect */
-    .cursor-effect {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      pointer-events: none;
-      transform: translate(-50%, -50%) scale(1);
-      z-index: 9999;
-      mix-blend-mode: screen;
-      transition: transform 0.1s ease;
-    }
-    
-    /* Performance optimized animations */
-    @keyframes logo-glow {
-      0% { box-shadow: 0 0 5px var(--logo-color-2); }
-      50% { box-shadow: 0 0 20px var(--logo-color-3); }
-      100% { box-shadow: 0 0 5px var(--logo-color-1); }
-    }
-    
-    @keyframes logo-spin {
-      100% { transform: rotate(360deg); }
-    }
-    
-    @keyframes logo-pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    
-    @keyframes logo-wave {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(5deg); }
-      75% { transform: rotate(-5deg); }
-    }
-    
-    @keyframes logo-color-shift {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-    
-    /* Touch effects */
-    .touch-effect {
+    .cat {
       position: absolute;
-      width: 20px;
+      width: 50px;
+      height: 50px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="white" d="M75,50c0,13.8-11.2,25-25,25S25,63.8,25,50c0-13.8,11.2-25,25-25S75,36.2,75,50z"/><circle cx="40" cy="45" r="5" fill="black"/><circle cx="60" cy="45" r="5" fill="black"/><path d="M40,60 Q50,70 60,60" stroke="black" fill="transparent" stroke-width="2"/></svg>');
+      background-repeat: no-repeat;
+      left: 25px;
+      animation: catMove 3s infinite alternate;
+    }
+    
+    .bowl {
+      position: absolute;
+      width: 40px;
       height: 20px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.7);
-      pointer-events: none;
-      transform: translate(-50%, -50%) scale(0);
-      animation: touch-expand 0.5s ease-out forwards;
-      mix-blend-mode: screen;
+      background-color: var(--neon-purple);
+      border-radius: 0 0 20px 20px;
+      bottom: 0;
+      left: 30px;
+      overflow: hidden;
     }
     
-    @keyframes touch-expand {
-      100% {
-        transform: translate(-50%, -50%) scale(5);
-        opacity: 0;
-      }
+    .food {
+      position: absolute;
+      width: 30px;
+      height: 5px;
+      background-color: var(--neon-pink);
+      border-radius: 5px 5px 0 0;
+      bottom: 0;
+      left: 5px;
+      transform-origin: bottom;
+      animation: foodDecrease 3s infinite alternate;
     }
     
-    /* Mobile-specific optimizations */
+    @keyframes catMove {
+      0%, 70% { bottom: 10px; }
+      100% { bottom: 0; }
+    }
+    
+    @keyframes foodDecrease {
+      0%, 70% { transform: scaleY(1); }
+      100% { transform: scaleY(0.1); }
+    }
+    
+    /* Mobile optimizations */
     @media (max-width: 640px) {
       body {
         padding: 10px;
@@ -394,56 +326,47 @@
       
       .menu {
         padding: 15px;
-        gap: 12px;
+        gap: 10px;
       }
       
       .menu-button {
-        padding: 8px 15px;
-        min-height: 40px;
+        padding: 10px 15px;
+        min-height: 44px;
       }
       
-      .menu-button i {
-        font-size: 1em;
-        min-width: 20px;
-        margin-right: 10px;
+      .logo {
+        width: 150px;
       }
       
-      .binary {
-        font-size: 10px;
+      .cat-container {
+        width: 80px;
+        height: 50px;
       }
       
-      /* Reduce animation intensity on mobile */
-      .menu::before {
-        animation-duration: 16s;
+      .cat {
+        width: 40px;
+        height: 40px;
+        left: 20px;
       }
       
-      .scanline {
-        animation-duration: 16s;
+      .bowl {
+        width: 30px;
+        left: 25px;
       }
     }
     
-    /* Disable animations for users who prefer reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        animation: none !important;
-        transition: none !important;
-      }
+    /* Performance optimizations */
+    .no-animation * {
+      animation: none !important;
     }
   </style>
 </head>
 <body>
   <div class="scanline"></div>
-  <div class="grid-pattern"></div>
+  <div class="particles" id="particles"></div>
   
-  <!-- Binary background -->
-  <div id="binary-bg"></div>
-  
-  <!-- Cursor effect -->
-  <div class="cursor-effect" id="cursor"></div>
-  
-  <!-- Main menu -->
   <div class="menu">
-    <div class="logo-container" id="logoContainer">
+    <div class="logo-container">
       <img src="icon.gif" alt="WS Logo" class="logo">
     </div>
     
@@ -455,31 +378,44 @@
       <i class="fas fa-link neon-text-blue"></i>
       <span>ссылки и прочее</span>
     </button>
+    
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/donate'">
       <i class="fas fa-money-bill-wave neon-text-green"></i>
       <span>перевод денег</span>
     </button>
+    
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/chat'">
       <i class="fas fa-comment-dots neon-text-pink"></i>
       <span>мини чатик</span>
     </button>
+    
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/game'">
       <i class="fas fa-gamepad neon-text-blue"></i>
       <span>мини игры</span>
     </button>
+    
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/art'">
       <i class="fas fa-paint-brush neon-text-green"></i>
       <span>случайный арт</span>
     </button>
+    
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/apps'">
       <i class="fas fa-mobile-alt neon-text-pink"></i>
       <span>мои приложения</span>
     </button>
+    
     <button class="menu-button" onclick="window.location.href='https://hwsata.github.io/fm'">
       <i class="fas fa-music neon-text-purple"></i>
       <span>мое радио &lt;3</span>
     </button>
     
+    <!-- Codex button -->
+    <button class="menu-button" onclick="window.location.href='https://winsentsweet.ru/thecode'">
+      <i class="fas fa-star neon-text-yellow"></i>
+      <span>codex</span>
+    </button>
+    
+    <!-- Audio player at the bottom -->
     <div class="audio-player">
       <audio controls preload="none">
         <source src="audio.mp3" type="audio/mpeg">
@@ -488,23 +424,32 @@
     </div>
   </div>
 
+  <div class="footer">
+    <div class="cat-container">
+      <div class="cat"></div>
+      <div class="bowl">
+        <div class="food"></div>
+      </div>
+    </div>
+    <div>Winsent Sweet Home DEV 2023</div>
+    <div>Все права защищены</div>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Performance optimization - delay non-critical animations
-      setTimeout(initAnimations, 100);
-      
       // Set random neon colors on load
       setRandomColors();
       
-      // Initialize cursor effects
-      initCursorEffects();
+      // Add hover effects to buttons
+      initButtonEffects();
       
-      // Initialize touch effects
-      initTouchEffects();
+      // Create interactive particles
+      createParticles();
       
-      // Initialize binary background
-      if (window.matchMedia('(min-width: 768px)').matches) {
-        initBinaryBackground();
+      // Detect low performance devices
+      const isLowPerfDevice = detectLowPerformance();
+      if (isLowPerfDevice) {
+        document.body.classList.add('no-animation');
       }
     });
     
@@ -515,199 +460,99 @@
         '--neon-purple', '--neon-yellow'
       ];
       
-      // Shuffle array
-      const shuffled = [...colors].sort(() => 0.5 - Math.random());
-      
-      // Set random colors for the menu border
-      document.documentElement.style.setProperty('--neon-color-1', `var(${shuffled[0]})`);
-      document.documentElement.style.setProperty('--neon-color-2', `var(${shuffled[1]})`);
-      document.documentElement.style.setProperty('--neon-color-3', `var(${shuffled[2]})`);
-      
-      // Set different random colors for the logo border
-      const logoShuffled = [...colors].sort(() => 0.5 - Math.random());
-      document.documentElement.style.setProperty('--logo-color-1', `var(${logoShuffled[0]})`);
-      document.documentElement.style.setProperty('--logo-color-2', `var(${logoShuffled[1]})`);
-      document.documentElement.style.setProperty('--logo-color-3', `var(${logoShuffled[2]})`);
-      
-      // Set random animation for logo border
-      const animations = [
-        'logo-spin 10s linear infinite, logo-color-shift 6s linear infinite',
-        'logo-pulse 3s ease-in-out infinite, logo-color-shift 8s linear infinite',
-        'logo-wave 5s ease-in-out infinite, logo-color-shift 10s linear infinite',
-        'logo-glow 4s ease-in-out infinite alternate'
-      ];
-      document.documentElement.style.setProperty(
-        '--logo-animation', 
-        animations[Math.floor(Math.random() * animations.length)]
-      );
-    }
-    
-    // Initialize animations with delay
-    function initAnimations() {
+      // Title color animation
       const title = document.querySelector('h1');
-      const titleColors = ['neon-text-pink', 'neon-text-blue', 'neon-text-green', 'neon-text-purple', 'neon-text-yellow'];
-      
-      // Cycle title colors
       if (title) {
         let current = 0;
         setInterval(() => {
-          title.classList.remove(titleColors[current]);
-          current = (current + 1) % titleColors.length;
-          title.classList.add(titleColors[current]);
+          title.classList.remove('neon-text-pink', 'neon-text-blue', 'neon-text-green', 'neon-text-purple', 'neon-text-yellow');
+          const newColor = colors[Math.floor(Math.random() * colors.length)].split('-')[2];
+          title.classList.add(`neon-text-${newColor}`);
         }, 3000);
       }
-      
-      // Button hover effects
+    }
+    
+    // Button hover effects
+    function initButtonEffects() {
       const buttons = document.querySelectorAll('.menu-button');
+      
       buttons.forEach(button => {
         const icon = button.querySelector('i');
-        if (!icon) return;
         
         button.addEventListener('mouseenter', () => {
-          const colors = ['--neon-pink', '--neon-blue', '--neon-green', '--neon-purple', '--neon-yellow'];
+          const colors = ['pink', 'blue', 'green', 'purple', 'yellow'];
           const randomColor = colors[Math.floor(Math.random() * colors.length)];
-          const colorValue = getComputedStyle(document.documentElement).getPropertyValue(randomColor);
-          icon.style.textShadow = `0 0 5px ${colorValue}, 0 0 10px ${colorValue}`;
+          
+          button.style.border = `1px solid var(--neon-${randomColor})`;
+          button.style.boxShadow = `0 0 10px var(--neon-${randomColor})`;
         });
         
         button.addEventListener('mouseleave', () => {
-          const iconClass = Array.from(icon.classList).find(c => c.startsWith('neon-text-'));
-          const color = getComputedStyle(document.documentElement)
-            .getPropertyValue(`--${iconClass.split('-')[2]}`);
-          icon.style.textShadow = `0 0 5px ${color}, 0 0 10px ${color}`;
+          button.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+          button.style.boxShadow = 'none';
         });
       });
     }
     
-    // Binary background - optimized for performance
-    function initBinaryBackground() {
-      const binaryBg = document.getElementById('binary-bg');
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+    // Create interactive particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      const particlesCount = window.innerWidth < 640 ? 30 : 80;
       
-      // Adjust density based on screen size
-      const density = Math.min(100, Math.floor((width * height) / 20000));
+      const colors = ['var(--neon-pink)', 'var(--neon-blue)', 'var(--neon-green)', 'var(--neon-purple)'];
       
-      for (let i = 0; i < density; i++) {
-        const binary = document.createElement('div');
-        binary.className = 'binary';
-        binary.textContent = generateBinaryString(Math.floor(Math.random() * 30) + 10);
+      for (let i = 0; i < particlesCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
         
-        // Position randomly but keep in viewport
-        binary.style.top = `${Math.random() * 100}vh`;
-        binary.style.left = `${Math.random() * 100}vw`;
-        binary.style.opacity = Math.random() * 0.1;
+        const size = Math.random() * 3 + 1;
+        const color = colors[Math.floor(Math.random() * colors.length)];
         
-        // Create unique animation
-        const animationName = `fall${i}`;
-        const style = document.createElement('style');
-        style.innerHTML = `
-          @keyframes ${animationName} {
-            to { transform: translateY(${height}px); }
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.backgroundColor = color;
+        
+        // Random animation
+        const duration = Math.random() * 20 + 20;
+        const delay = Math.random() * 5;
+        
+        particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+        
+        container.appendChild(particle);
+      }
+      
+      // Add float animation dynamically for performance
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes float {
+          0% {
+            transform: translate(0, 0) rotate(0deg);
+            opacity: 1;
           }
-        `;
-        document.head.appendChild(style);
-        
-        // Random animation properties
-        const duration = 10 + Math.random() * 20;
-        const delay = -Math.random() * duration;
-        
-        binary.style.animation = `
-          ${animationName} ${duration}s linear infinite,
-          flicker ${2 + Math.random() * 3}s ease-in-out infinite alternate
-        `;
-        binary.style.animationDelay = `${delay}s`;
-        
-        binaryBg.appendChild(binary);
-      }
+          50% {
+            opacity: 0.7;
+          }
+          100% {
+            transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) rotate(${Math.random() * 360}deg);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
     }
     
-    function generateBinaryString(length) {
-      return Array(length).fill(0).map(() => Math.round(Math.random()).toString()).join(' ');
-    }
-    
-    // Cursor effects - desktop only
-    function initCursorEffects() {
-      const cursor = document.getElementById('cursor');
-      if (!cursor) return;
+    // Detect low performance devices
+    function detectLowPerformance() {
+      // Check for mobile devices with low memory
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isSlowCPU = navigator.hardwareConcurrency < 4;
       
-      let mouseX = 0;
-      let mouseY = 0;
-      let posX = 0;
-      let posY = 0;
+      // Check for reduced motion preference
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       
-      // Follow mouse with delay for smooth effect
-      document.addEventListener('mousemove', function(e) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      });
-      
-      // Smooth follow animation
-      function updateCursor() {
-        posX += (mouseX - posX) * 0.1;
-        posY += (mouseY - posY) * 0.1;
-        
-        cursor.style.left = `${posX}px`;
-        cursor.style.top = `${posY}px`;
-        
-        requestAnimationFrame(updateCursor);
-      }
-      
-      updateCursor();
-      
-      // Interaction effects
-      const buttons = document.querySelectorAll('button');
-      buttons.forEach(button => {
-        button.addEventListener('mouseenter', () => {
-          cursor.style.transform = 'translate(-50%, -50%) scale(2)';
-          cursor.style.background = 'rgba(255, 255, 255, 0.7)';
-        });
-        
-        button.addEventListener('mouseleave', () => {
-          cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-          cursor.style.background = 'rgba(255, 255, 255, 0.5)';
-        });
-      });
-    }
-    
-    // Touch effects - mobile only
-    function initTouchEffects() {
-      const body = document.body;
-      
-      body.addEventListener('touchstart', function(e) {
-        const touch = e.touches[0];
-        if (!touch) return;
-        
-        const touchEffect = document.createElement('div');
-        touchEffect.className = 'touch-effect';
-        touchEffect.style.left = `${touch.pageX}px`;
-        touchEffect.style.top = `${touch.pageY}px`;
-        
-        const colors = ['#FF14C9', '#00F7FF', '#39FF14', '#BA33FF', '#FFEA03'];
-        touchEffect.style.background = colors[Math.floor(Math.random() * colors.length)];
-        
-        document.body.appendChild(touchEffect);
-        
-        // Remove after animation completes
-        setTimeout(() => {
-          document.body.removeChild(touchEffect);
-        }, 500);
-      });
-    }
-    
-    // Optimize for slow devices
-    if (window.navigator && window.navigator.connection) {
-      if (navigator.connection.saveData || navigator.connection.effectiveType.includes('2g')) {
-        // Reduce animations for slow connections
-        const animatedElements = document.querySelectorAll('*[style*="animation"]');
-        animatedElements.forEach(el => {
-          el.style.animationDuration = '10s';
-        });
-        
-        // Remove binary background
-        const binaryBg = document.getElementById('binary-bg');
-        if (binaryBg) binaryBg.innerHTML = '';
-      }
+      return isMobile || isSlowCPU || prefersReducedMotion;
     }
   </script>
 </body>
