@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Donate | Winsentsweet</title>
+    <title>Donate | Winsentsweet</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -281,7 +281,7 @@
     <div class="container mx-auto px-4 py-12 flex flex-col items-center">
         <div class="text-center mb-12">
             <h1 class="text-5xl md:text-6xl font-bold mb-6 neon-text floating">WINSENTSWEET</h1>
-            <p class="text-xl md:text-2xl text-gray-300 mb-8">Поддержите мое творчество!</p>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8">Все (почти) деньги пойдут на еду!</p>
         </div>
         
         <div class="flex flex-col md:flex-row gap-8 items-center justify-center mb-16">
@@ -290,7 +290,7 @@
                 <span></span>
                 <span></span>
                 <span></span>
-                <i class="fas fa-heart mr-2"></i> Donate Now
+                <i class="fas fa-heart mr-2"></i> Donate Alerts
             </a>
             
             <button id="showDetailsBtn" class="btn-neon relative overflow-hidden">
@@ -305,7 +305,7 @@
         <div id="dropdownContent" class="dropdown-content w-full max-w-md mb-12">
             <div class="card mb-6 transform transition-all duration-300 hover:scale-105">
                 <div class="flex justify-between items-center mb-4">
-                    <div class="text-sm text-gray-400">VIRTUAL CARD</div>
+                    <div class="text-sm text-gray-400">MIR CARD МТС Деньги (ЭКСИ Банк)</div>
                     <div class="flex space-x-2">
                         <div class="w-8 h-8 rounded-full bg-red-500"></div>
                         <div class="w-8 h-8 rounded-full bg-yellow-500"></div>
@@ -322,15 +322,15 @@
                 <div class="flex items-center mb-4">
                     <i class="fas fa-mobile-alt text-2xl mr-3 text-purple-400"></i>
                     <div>
-                        <div class="text-sm text-gray-400">СБП (МТС ДЕНЬГИ)</div>
+                        <div class="text-sm text-gray-400">СБП МТС Деньги (ЭКСИ Банк)</div>
                         <div class="text-xl font-mono">7913 179 6117</div>
                     </div>
                 </div>
-                <div class="text-xs text-gray-500 mt-2">Возможна оплата через Систему Быстрых Платежей</div>
+                <div class="text-xs text-gray-500 mt-2">Возможна оплата через Систему Быстрых Платежей!!!</div>
             </div>
             
             <div class="mt-6 text-center text-gray-500 text-sm">
-                <p>Спасибо за вашу поддержку! ❤️</p>
+                <p>Спасибо за вашу поддержку! winsentsweet 2025 ❤️</p>
             </div>
         </div>
         
@@ -351,7 +351,6 @@
             }
         });
         
-        // Анимация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
             const elements = document.querySelectorAll('.btn-neon, h1, p');
             elements.forEach((el, index) => {
@@ -365,7 +364,6 @@
             });
         });
         
-        // Копирование реквизитов при клике
         document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('click', function() {
                 const textToCopy = this.querySelector('.card-number')?.textContent || 
