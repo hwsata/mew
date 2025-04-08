@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Donate | Winsentsweet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Ubuntu+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --neon-pink: #ff2a6d;
+            --neon-blue: #05d9e8;
+            --neon-purple: #d300c5;
+            --dark-bg: #0d0221;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Ubuntu Mono', monospace;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 42, 109, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(5, 217, 232, 0.1) 0%, transparent 20%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .neon-text {
+            text-shadow: 
+                0 0 5px #fff,
+                0 0 10px var(--neon-blue),
+                0 0 20px var(--neon-blue);
+            color: white;
+        }
+        
+        .neon-box {
+            border: 2px solid var(--neon-blue);
+            box-shadow: 
+                0 0 10px var(--neon-blue),
+                inset 0 0 10px var(--neon-blue);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .neon-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                transparent,
+                transparent,
+                var(--neon-blue),
+                transparent,
+                transparent,
+                transparent
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                left: -50%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+        
+        .btn-neon {
+            position: relative;
+            display: inline-block;
+            padding: 15px 30px;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-decoration: none;
+            font-size: 24px;
+            overflow: hidden;
+            transition: 0.2s;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            border-radius: 8px;
+            background-color: rgba(5, 217, 232, 0.1);
+        }
+        
+        .btn-neon:hover {
+            color: white;
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue), 0 0 40px var(--neon-blue), 0 0 80px var(--neon-blue);
+            transition-delay: 0.1s;
+        }
+        
+        .btn-neon span {
+            position: absolute;
+            display: block;
+        }
+        
+        .btn-neon span:nth-child(1) {
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue));
+        }
+        
+        .btn-neon:hover span:nth-child(1) {
+            left: 100%;
+            transition: 1s;
+        }
+        
+        .btn-neon span:nth-child(3) {
+            bottom: 0;
+            right: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(270deg, transparent, var(--neon-blue));
+        }
+        
+        .btn-neon:hover span:nth-child(3) {
+            right: 100%;
+            transition: 1s;
+            transition-delay: 0.5s;
+        }
+        
+        .btn-neon span:nth-child(2) {
+            top: -100%;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, var(--neon-blue));
+        }
+        
+        .btn-neon:hover span:nth-child(2) {
+            top: 100%;
+            transition: 1s;
+            transition-delay: 0.25s;
+        }
+        
+        .btn-neon span:nth-child(4) {
+            bottom: -100%;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(360deg, transparent, var(--neon-blue));
+        }
+        
+        .btn-neon:hover span:nth-child(4) {
+            bottom: 100%;
+            transition: 1s;
+            transition-delay: 0.75s;
+        }
+        
+        .btn-neon-pink {
+            color: var(--neon-pink);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+            background-color: rgba(255, 42, 109, 0.1);
+        }
+        
+        .btn-neon-pink:hover {
+            background: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink), 0 0 40px var(--neon-pink), 0 0 80px var(--neon-pink);
+        }
+        
+        .btn-neon-pink span:nth-child(1) {
+            background: linear-gradient(90deg, transparent, var(--neon-pink));
+        }
+        
+        .btn-neon-pink span:nth-child(2) {
+            background: linear-gradient(180deg, transparent, var(--neon-pink));
+        }
+        
+        .btn-neon-pink span:nth-child(3) {
+            background: linear-gradient(270deg, transparent, var(--neon-pink));
+        }
+        
+        .btn-neon-pink span:nth-child(4) {
+            background: linear-gradient(360deg, transparent, var(--neon-pink));
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #1a0933, #0d0221);
+            border: 1px solid var(--neon-purple);
+            box-shadow: 0 0 15px var(--neon-purple);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px var(--neon-purple);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+        }
+        
+        .card-number {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: white;
+            text-shadow: 0 0 5px var(--neon-blue);
+            margin: 15px 0;
+        }
+        
+        .dropdown-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 42, 109, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(255, 42, 109, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 42, 109, 0);
+            }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-lines"></div>
+    
+    <div class="container mx-auto px-4 py-12 flex flex-col items-center">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 neon-text floating">WINSENTSWEET</h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8">Поддержите мое творчество!</p>
+        </div>
+        
+        <div class="flex flex-col md:flex-row gap-8 items-center justify-center mb-16">
+            <a href="https://www.donationalerts.com/r/winsentsweet" target="_blank" class="btn-neon btn-neon-pink relative overflow-hidden">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <i class="fas fa-heart mr-2"></i> Donate Now
+            </a>
+            
+            <button id="showDetailsBtn" class="btn-neon relative overflow-hidden">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <i class="fas fa-credit-card mr-2"></i> Bank Details
+            </button>
+        </div>
+        
+        <div id="dropdownContent" class="dropdown-content w-full max-w-md mb-12">
+            <div class="card mb-6 transform transition-all duration-300 hover:scale-105">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="text-sm text-gray-400">VIRTUAL CARD</div>
+                    <div class="flex space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-red-500"></div>
+                        <div class="w-8 h-8 rounded-full bg-yellow-500"></div>
+                    </div>
+                </div>
+                <div class="card-number">2203 8303 0974 2402</div>
+                <div class="flex justify-between text-sm text-gray-400">
+                    <div>WINSENTSWEET</div>
+                    <div><i class="fab fa-cc-visa mr-1 text-blue-400"></i> VISA</div>
+                </div>
+            </div>
+            
+            <div class="card transform transition-all duration-300 hover:scale-105">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-mobile-alt text-2xl mr-3 text-purple-400"></i>
+                    <div>
+                        <div class="text-sm text-gray-400">СБП (МТС ДЕНЬГИ)</div>
+                        <div class="text-xl font-mono">7913 179 6117</div>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-500 mt-2">Возможна оплата через Систему Быстрых Платежей</div>
+            </div>
+            
+            <div class="mt-6 text-center text-gray-500 text-sm">
+                <p>Спасибо за вашу поддержку! ❤️</p>
+            </div>
+        </div>
+        
+        <div class="fixed bottom-4 right-4">
+            <div class="w-16 h-16 rounded-full bg-pink-600 flex items-center justify-center text-white text-2xl pulse">
+                <i class="fas fa-gift"></i>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('showDetailsBtn').addEventListener('click', function() {
+            const dropdown = document.getElementById('dropdownContent');
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.style.display = 'block';
+            }
+        });
+        
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.btn-neon, h1, p');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+        
+        // Копирование реквизитов при клике
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function() {
+                const textToCopy = this.querySelector('.card-number')?.textContent || 
+                                  this.querySelector('.text-xl')?.textContent;
+                
+                if (textToCopy) {
+                    navigator.clipboard.writeText(textToCopy.replace(/\s/g, '')).then(() => {
+                        const originalText = this.querySelector('.text-sm')?.textContent;
+                        if (this.querySelector('.text-sm')) {
+                            this.querySelector('.text-sm').textContent = 'Скопировано!';
+                            setTimeout(() => {
+                                this.querySelector('.text-sm').textContent = originalText;
+                            }, 2000);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
